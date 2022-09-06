@@ -1,15 +1,11 @@
 # gcloud-pubsub-emulator
 
+This repository contains the Docker configuration for Google's PubSub emulator.
+
 fixes compared to original repo:
-- CTRL+C is supported
-- creating push subscriptions is supported
+- CTRL+C (interrupt) is supported with docker run
+- creating push subscriptions (endpoints) is supported
 - adding port to endpoint is supported (e.g. `localhost#8080`)
-Dockerized PubSub emulator which supports Push and Pull subscriptions.
-
-This repository contains the Docker configuration for Google's PubSub emulator. It's mainly the dockerization and documentation of:
-
-
-- https://github.com/floatschedule/pubsubc
 
 ## Installation
 
@@ -62,7 +58,7 @@ PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8080,chats:sla
 So the full command would look like:
 
 ```bash
-docker run --rm -ti -p 8681:8681 -e PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost,chats:slack-out:irc-out,notifications matejciglenecki/gcloud-pubsub-emulator:latest
+docker run --rm -ti -p 8681:8681 -e PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8080,chats:slack-out:irc-out,notifications matejciglenecki/gcloud-pubsub-emulator:latest
 ```
 
 
