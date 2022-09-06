@@ -3,7 +3,7 @@
 fixes compared to original repo:
 - CTRL+C is supported
 - creating push subscriptions is supported
-
+- adding port to endpoint is supported (e.g. `localhost#8080`)
 Dockerized PubSub emulator which supports Push and Pull subscriptions.
 
 This repository contains the Docker configuration for Google's PubSub emulator. It's mainly the dockerization and documentation of:
@@ -47,7 +47,7 @@ To automatically create topics and subscriptions in projects on startup you can 
 For example, If you have:
 - _project ID_ `company-dev`
 - topic `invoices`
-	- with a push subscription `invoice-calculator` with an endpoint `localhost`
+	- with a push subscription `invoice-calculator` with an endpoint `localhost:8080`
 - topic `chats`
 	- with a pull subscription `slack-out`
 	- with a pull subscription `irc-out`
@@ -56,7 +56,7 @@ For example, If you have:
 you'd define `PUBSUB_PROJECT1` this way:
 
 ```bash
-PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost,chats:slack-out:irc-out,notifications
+PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8080,chats:slack-out:irc-out,notifications
 ```
 
 So the full command would look like:
