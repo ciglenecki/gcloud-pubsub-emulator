@@ -7,19 +7,50 @@ fixes compared to original repo:
 - creating push subscriptions (endpoints) is supported
 - adding port to endpoint is supported (e.g. `localhost#8080`)
 
+## Quick start:
+
+```bash
+docker run --rm -ti -p <PORT>:<PORT> \
+-e PUBSUB_PROJECT1=<PROJECT_ID>,\
+<TOPIC_A>:<PULL_SUB_A_1>,\
+<TOPIC_B>:<PULL_SUB_B_1>:<PUSH_SUB_B_2>+<ENDPOINT> \
+matejciglenecki/gcloud-pubsub-emulator:latest \
+--host-port=localhost:<PORT>
+```
+
+Example:
+- `<PORT>`: 8681
+- `<PROJECT_ID>`: my_project
+- `<TOPIC_ID_1>`: topic_a
+- `<PULL_SUB_A_1>`: sub_a
+- `<TOPIC_B>`: topic_b
+- `<PULL_SUB_B_2>`: sub_b1
+- `<PULL_SUB_B_2>`: sub_b2_push
+- `<ENDPOINT>`: localhost#8030 (note the `#` instead of `:`)
+
+Full command:
+```
+docker run --rm -ti -p 8681:8681 \
+-e PUBSUB_PROJECT1=my_project,\
+topic_a:sub_a,\
+topic_b:sub_b1:sub_b2_push+localhost#8030 \
+matejciglenecki/gcloud-pubsub-emulator:latest \
+--host-port=localhost:8681
+```
+
 ## Installation
 
 1.A) A pre-built Docker container is available for Docker Hub:
 
 ```
-docker run --rm -ti -p 8681:8681 matejciglenecki/gcloud-pubsub-emulator:latest
+docker run --rm -ti -p 8681:8681 matejciglenecki/gcloud-pubsub-emulator:latest --host-port=localhost:8681
 ```
 
 1.B) Build this repository yourself:
 
 ```
 docker build -t gcloud-pubsub-emulator:latest .
-docker run --rm -ti -p 8681:8681 gcloud-pubsub-emulator:latest
+docker run --rm -ti -p 8681:8681 gcloud-pubsub-emulator:latest --host-port=localhost:8681
 ```
 
 Usage
@@ -43,7 +74,7 @@ To automatically create topics and subscriptions in projects on startup you can 
 For example, If you have:
 - _project ID_ `company-dev`
 - topic `invoices`
-	- with a push subscription `invoice-calculator` with an endpoint `localhost:8080`
+	- with a push subscription `invoice-calculator` with an endpoint `localhost:8030`
 - topic `chats`
 	- with a pull subscription `slack-out`
 	- with a pull subscription `irc-out`
@@ -51,14 +82,19 @@ For example, If you have:
 
 you'd define `PUBSUB_PROJECT1` this way:
 
-```bash
-PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8080,chats:slack-out:irc-out,notifications
+```
+PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8030,chats:slack-out:irc-out,notifications
 ```
 
 So the full command would look like:
 
-```bash
-docker run --rm -ti -p 8681:8681 -e PUBSUB_PROJECT1=company-dev,invoices:invoice-calculator+localhost#8080,chats:slack-out:irc-out,notifications matejciglenecki/gcloud-pubsub-emulator:latest
+```
+docker run --rm -ti -p 8681:8681 \
+-e PUBSUB_PROJECT1=company-dev,\
+invoices:invoice-calculator+localhost#8030,\
+chats:slack-out:irc-out,notifications \
+matejciglenecki/gcloud-pubsub-emulator:latest \
+--host-port=localhost:8681
 ```
 
 
