@@ -31,7 +31,7 @@ Example:
 Full command:
 ```
 docker run --rm -ti -p 8681:8681 \
---env HOSTPORT=localhost:8681 \
+--env HOSTPORT=0.0.0.0:8681 \
 --env PUBSUB_PROJECT1=my_project,\
 topic_a:sub_a,\
 topic_b:sub_b1:sub_b2_push+localhost#8030 \
@@ -43,14 +43,14 @@ matejciglenecki/gcloud-pubsub-emulator:latest \
 1.A) A pre-built Docker container is available for Docker Hub:
 
 ```
-docker run --rm -ti -p 8681:8681 matejciglenecki --env HOSTPORT=localhost:8681 gcloud-pubsub-emulator:latest
+docker run --rm -ti -p 8681:8681 matejciglenecki --env HOSTPORT=0.0.0.0:8681 gcloud-pubsub-emulator:latest
 ```
 
 1.B) Build this repository yourself:
 
 ```
 docker build -t gcloud-pubsub-emulator:latest .
-docker run --rm -ti -p 8681:8681 --env HOSTPORT=localhost:8681 gcloud-pubsub-emulator:latest
+docker run --rm -ti -p 8681:8681 --env HOSTPORT=0.0.0.0:8681 gcloud-pubsub-emulator:latest
 ```
 
 Usage
@@ -90,7 +90,7 @@ So the full command would look like:
 
 ```
 docker run --rm -ti -p 8681:8681 \
---env HOSTPORT=localhost:8681 \
+--env HOSTPORT=0.0.0.0:8681 \
 --env PUBSUB_PROJECT1=company-dev,\
 invoices:invoice-calculator+localhost#8030,\
 chats:slack-out:irc-out,notifications \

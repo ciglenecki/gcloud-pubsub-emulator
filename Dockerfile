@@ -18,6 +18,7 @@ RUN go install .
 
 FROM google/cloud-sdk:alpine
 
+EXPOSE 8681
 # Install dependencies
 RUN apk --update add openjdk8-jre wget
 RUN gcloud components install beta pubsub-emulator
@@ -31,7 +32,9 @@ COPY --from=builder /go/bin/pubsub-emulator-docker /usr/bin
 COPY listener.sh /listener.sh
 RUN chmod +x /listener.sh
 
-ENV HOSTPORT=localhost:8681
+ENV HOSTPORT=0.0.0.0:8681
+
+
 # Issue 1: gcloud beta emulators pubsub start can't be run in .sh script becase the interrupt signal won't kill it
 # Issue 2: wait-for-it has to be called as a command, it can't be runned with RUN
 # CMD /listener.sh && gcloud beta emulators pubsub start --host-port=0.0.0.0:$PORT
