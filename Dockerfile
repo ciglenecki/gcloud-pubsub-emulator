@@ -2,7 +2,7 @@ FROM golang:alpine as builder
 
 RUN apk update && apk upgrade && apk add --no-cache curl git
 
-# f you're using this Docker image in a docker-compose setup or something similar, you might have leveraged scripts like wait-for or wait-for-it to detect when the PubSub service comes up before starting a container that depends on it being up. If you're not using the above-mentioned PUBSUB_PROJECT environment variable, you can simply check if port 8085 is available. If you do depend on one or more PUBSUB_PROJECT environment variables, you should check for the availability of port 8682 as that one will become available once all the topics and subscriptions have been created.
+# f you're using this Docker image in a docker-compose setup or something similar, you might have leveraged scripts like wait-for or wait-for-it to detect when the PubSub service comes up before starting a container that depends on it being up. If you're not using the above-mentioned PUBSUB_PROJECT environment variable, you can simply check if port 8085 is available. If you do depend on one or more PUBSUB_PROJECT environment variables, you should check for the availability of port 8086 as that one will become available once all the topics and subscriptions have been created.
 RUN curl -s https://raw.githubusercontent.com/eficode/wait-for/master/wait-for -o /usr/bin/wait-for
 RUN chmod +x /usr/bin/wait-for
 
