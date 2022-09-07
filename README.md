@@ -15,7 +15,7 @@ docker run --rm -ti -p <PORT>:<PORT> \
 --env HOSTPORT=<HOST>:<PORT> \
 <TOPIC_A>:<PULL_SUB_A_1>,\
 <TOPIC_B>:<PULL_SUB_B_1>:<PUSH_SUB_B_2>+<ENDPOINT> \
-matejciglenecki/gcloud-pubsub-emulator:latest \
+matejciglenecki/gcloud-pubsub-emulator:latest
 ```
 
 Example:
@@ -35,7 +35,7 @@ docker run --rm -ti -p 8681:8681 \
 --env PUBSUB_PROJECT1=my_project,\
 topic_a:sub_a,\
 topic_b:sub_b1:sub_b2_push+localhost#8030 \
-matejciglenecki/gcloud-pubsub-emulator:latest \
+matejciglenecki/gcloud-pubsub-emulator:latest
 ```
 
 ## Installation
