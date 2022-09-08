@@ -7,7 +7,6 @@ set -e
 trap exit INT
 
 # Execute pubsub-emulator-docker to create topics and subscriptions after the emulator opened its ports.
-
 (/wait-for-it.sh $HOSTPORT -- env PUBSUB_EMULATOR_HOST=$HOSTPORT /usr/bin/pubsub-emulator-docker -debug) &
 # WAIT_FOR_PID="$!"
 
